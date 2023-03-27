@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>
+        Ajouter un point de Vente
+    </h2>
+    <form method='POST' action="{% url 'confirmation_add_shopkeeper' %}">
+        {% csrf_token %}
+        <ul>
+            {{ form.as_p }}
+        </ul>
+        
+        <button type="submit">Ajouter</button>
+    </form>
+
+{% endblock %}

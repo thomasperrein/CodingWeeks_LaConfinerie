@@ -1,0 +1,52 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Détails du produit{% endblock %}
+
+{% block content %}
+
+<hr>
+<h1 class="intro-text text-center">{{ product.name }}</h1>
+<hr class="detail-separator">
+<div class="col-md-6">
+    {% if product.picture != "" %} <img class="img-responsive" src="{{ product.picture.url }}" alt="{{ product.name }}" width='500'>
+    {% endif %}
+    {% if product.picture == "" %} Aucune photo n'est disponible pour ce produit. {% endif %}
+</div>
+<div class="col-md-6">
+    <div style="margin-bottom:45px">
+        <li>Vendeur : {{shopkeeper_name}} </li>
+        <li>Prix : {{product.price}} € </li>
+        <li>Description : {{product.description}} </li>
+        <li>Disponible : {{product_available}} </li>
+        <li>Catégorie : {{product_category}} </li>
+    </div>
+
+    <h2 class="text-center shopkeeper_name">Réserver </h2>
+    <p style="margin-bottom: 20px;">Demandez-nous de mettre de côté ce produit et venez le chercher dès demain
+        en magasin ! </p>
+    
+    
+<form class="form-inline" action="{% url 'store:detail' product_id=product.id %}" method="post">
+        {% csrf_token %}
+</div>
+<br>
+<input type="hidden" class="hidden" value="{{ product.id }}" name="product_id">
+
+<button type="submit" class="btn btn-success">Réserver</button>
+</form>
+
+
+{% if errors %}
+<div>
+    {% for key, error in errors %}
+    {% autoescape off %}
+    {{ error }}
+    {% endautoescape %}
+    {% endfor %}
+</div>
+{% endif %}
+
+</div>
+
+
+{% endblock %}

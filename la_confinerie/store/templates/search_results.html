@@ -1,0 +1,60 @@
+
+{% extends 'store/base.html' %}
+
+
+
+{% block title %}Résultats de la recherche{% endblock %}
+
+{% block content %}
+
+Vous avez demandé : {{ query }} <br>
+
+{% if message == 'Voici les produits vendus par le vendeur qui correspond à votre recherche :' or 'Désolé, ce vendeur est bien inscrit mais celui-ci ne propose aucun produit' %}
+{% for shop in shopkeeper %}
+Voici les coordonnées et la description du lieu de vente :
+<ul></ul>
+    <ul><b>Addresse :</b>
+        {% if shop.address == None %}
+            Ce champ n'a pas été renseigné par le vendeur.
+        {% endif %}
+        {{ shop.address }}
+    </ul>
+    <ul><b>Numéro de téléphone : </b>
+        {% if shop.phone == None %}
+            Ce champ n'a pas été renseigné par le vendeur.
+        {% endif %}
+        {{ shop.phone }}
+    </ul>
+    <ul><b>Description : </b>
+        {% if shop.description == None %}
+            Ce champ n'a pas été renseigné par le vendeur.
+        {% endif %}
+        {{ shop.description }}
+    </ul>
+{% endfor %}
+{% endif %}
+
+
+{{message}}
+
+
+{% for product in products %}
+<div class="col-lg-12">
+    <hr>
+    <h2 class="intro-text text-center">{{ list_title }}
+    </h2>
+    <hr class="detail-separator">
+    <div class="col-sm-4 text-center">
+        <a href="{% url 'store:detail' product_id=product.id %}">
+            {% if product.picture != ""%}
+            <img class="img-responsive" src="{{ product.picture.url }}" alt="{{ product.name }}" width = '200'>
+            {% endif %}
+        </a>
+        <h3><a href="{% url 'store:detail' product_id=product.id %}">{{ product.name }}</a></h3>
+        <p>Vendeur : <a href="/store/search/?query={{ product.shopkeeper.name }}"> {{ product.shopkeeper }}</a></p>
+        <p>Prix : {{ product.price }} euros</p>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
+

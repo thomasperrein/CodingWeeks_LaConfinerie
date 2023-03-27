@@ -1,0 +1,24 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Produit ajouté {% endblock %}
+{% block content %}
+
+
+
+<div>
+        Nom : {{product.name}} <br>
+        Description : {{product_description}} <br>
+        Catégorie : {{product_category}} <br>
+        Prix : {{product_price}} <br>
+        Vendeur : {{product_shopkeeper}} <br>
+        Disponibilité : {{product_available}} <br>
+        Photo : {% if product.picture != "" %} <img class="img-responsive" src="{{ product.picture.url }}"  alt="{{ product.name }}" width="200"> {% endif %}
+   
+
+            
+
+</div>
+
+
+Votre produit a bien été ajouté, merci de votre confiance !
+{% endblock %}

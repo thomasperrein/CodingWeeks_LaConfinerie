@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+<!-- Page utilisant les formulaires de Django.contrib.auth pour connecter la personne à son espace personnel -->
+{% block content %}
+    <h2>
+        Login Page
+    </h2>
+    <p>Please enter your login and your password in the <b>appropriate</b> fields</p>
+    <form method='POST'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Log In</button>
+        <a href="{% url 'password_reset' %}">Forgot your password ?</a>
+    </form>
+
+{% endblock %}

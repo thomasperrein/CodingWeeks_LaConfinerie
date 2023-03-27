@@ -1,0 +1,12 @@
+<!--code de la barre de recherche-->
+
+<div class="col-lg-12 detail-separator">
+    <form class="col-md-6 col-md-offset-3 text-center" action="{% url 'store:search' %}" method="get"
+        accept-charset="utf-8">
+        <div class="form-group">
+            <label for="searchForm">Find a product</label>
+            <input id="searchForm" class="form-control" name="query">
+        </div>
+        <span class="help-block" id="helpBlock">Find your product by name or by producer's name</span>
+    </form>
+</div>

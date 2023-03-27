@@ -1,0 +1,17 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Ajouter un produit{% endblock %}
+
+{% block content %}
+
+
+
+<form action="{% url 'store:confirm_added_product'  %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p}}
+  <button type="submit" class="btn btn-success">Ajouter le produit</button>
+
+  Il n'y a pas la catégorie que vous recherchez ? Vous pouvez <a href="/store/add/category">l'ajouter</a>.
+</form>
+
+{% endblock %}

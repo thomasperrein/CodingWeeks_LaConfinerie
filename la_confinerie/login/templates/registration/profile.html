@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}Votre profil{% endblock %}
+{% block content %}
+<h2>
+    Your Profile
+</h2>
+<br>
+    <p>Welcome to your profile {{ user.username }}</p>
+    <p>Bienvenue sur votre profil {{ user.username }}</p>
+    <p>Votre adresse : {{ user.email }}</p>
+    <p>Vous êtes <u>{{ user.type }}</u></p>
+<br>
+<h4>
+    Change password
+</h4>
+<button type="submit"><a href="{% url 'password_change'  %}" target="_blank">Change password</a></button>
+<!-- Partie disponible qu'au profil vendeur-->
+{% if type %}
+    <h2>
+        Vos points de vente
+    </h2>
+    <br><br>
+    <h4>
+        Ajouter vos endroits de vente ici
+    </h4>
+    <button type="submit"><a href="{% url 'add_shopkeeper' %}">GO</a></button>
+    <br><br>
+<!-- Affichage des entrepots du vendeur-->
+    {% for shop in shops %}
+        <p>{{ shop.name }}</p>
+    {% endfor %}
+        <br><br>
+        <h2>
+            Vos produits
+        </h2>
+        <!-- Affichage des produits du vendeur-->
+    {% for produit in products %}
+        <li>
+            <h5>
+                {{ produit.name }}
+            </h5>
+            <div>
+                <p>{{ produit.description }}</p>
+                <p>Le produit est : </p>
+                {% if produit.availability %}
+                    <p style="color:green;"> En stock ! </p>
+                    <button type="submit"><a href="{% url 'availability' %}">Actualiser le stock</a></button>
+                {% else %}
+                    <p style="color:red;"> En rupture de stock ! </p>
+                    <button type="submit"><a href="{% url 'availability' %}">Actualiser le stock</a></button>
+                {% endif %}
+                <p>Photo : {% if produit.picture != "" %} <img class="img-responsive" src="{{ produit.picture.url }}"
+                        alt="{{ produit.name }}" width="290">{% endif %}</p>
+            </div>
+        </li>
+    {% endfor %}
+{% endif %}
+
+<br><br>
+
+<h3><a class="btn btn-primary btn-xl js-scroll-trigger" href="/store">Retourner faire ses achats</a></h3>
+
+{% endblock %}
